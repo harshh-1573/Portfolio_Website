@@ -28,6 +28,7 @@
   border-radius: 50%;
   filter: blur(100px);
   opacity: 1;
+  will-change: transform;
 }
 
 .hero-blob-1 {
@@ -355,6 +356,7 @@
   );
   border-radius: 9999px;
   animation: spin-slow 20s linear infinite;
+  will-change: transform;
 }
 
 .photo-frame {

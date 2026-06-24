@@ -247,11 +247,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, stepTime);
   }
 
-  const counterObserver = new IntersectionObserver((entries) => {
+  const counterObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting && !animatedCounters.has(entry.target)) {
         animatedCounters.add(entry.target);
         animateCounter(entry.target);
+        observer.unobserve(entry.target);
       }
     });
   }, {
@@ -358,13 +359,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Update cursor glow position on mouse move
   if (cursorGlow) {
+    let mouseX = 0;
+    let mouseY = 0;
+    let isMoving = false;
+
     document.addEventListener('mousemove', (e) => {
       if (window.innerWidth <= 768) return;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
 
-      requestAnimationFrame(() => {
-        cursorGlow.style.transform =
-          `translate(${e.clientX - 75}px, ${e.clientY - 75}px)`;
-      });
+      if (!isMoving) {
+        isMoving = true;
+        requestAnimationFrame(() => {
+          cursorGlow.style.transform = `translate(${mouseX - 75}px, ${mouseY - 75}px)`;
+          isMoving = false;
+        });
+      }
     });
 
     // Re-check on resize (hide on mobile, show on desktop)
