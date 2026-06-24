@@ -45,11 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================================
   const typingText = document.getElementById('typing-text');
   const roles = [
-    'Java Full Stack Developer',
-    'Aspiring Java Developer',
-    'Full Stack Developer',
-    'MERN Stack Developer',
-    'Problem Solver'
+    'Freelance Web Developer',
+    'Software Engineer & Builder',
+    'Full Stack Web Developer',
+    'Java Backend Engineer',
+    'SEO & Performance Specialist',
+    'Digital Entrepreneur'
   ];
   let roleIndex = 0;
   let charIndex = 0;
@@ -147,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // === 6. Active Navigation Link Highlighting ===
   // ============================================================
   const sections = document.querySelectorAll(
-    'section[id]'
+    '#home, #about, #services, #pricing, #projects, #contact'
   );
   const navLinks = document.querySelectorAll('.nav-link');
   const allMobileNavLinks = document.querySelectorAll('.mobile-nav-link');
@@ -276,8 +277,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const formSuccess = document.getElementById('form-success');
   const formSubmitBtn = document.getElementById('form-submit-btn');
 
+  // Initialize EmailJS
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init({
+      publicKey: "4_KiyvocN_rBR5GEw",
+    });
+  }
+
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Basic validation — check that name, email, and message are filled
@@ -293,28 +301,40 @@ document.addEventListener('DOMContentLoaded', () => {
         return; // Don't submit if fields are empty
       }
 
-      // Save original button content and show spinner
-      const originalBtnContent = formSubmitBtn.innerHTML;
+      // Save original button content and show text content "Sending..."
+      const originalText = formSubmitBtn.textContent;
       formSubmitBtn.disabled = true;
-      formSubmitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+      formSubmitBtn.textContent = "Sending...";
 
-      // Simulate a network request with 1500ms delay
-      setTimeout(() => {
-        // Hide the form and show success message
-        contactForm.style.display = 'none';
-        formSuccess.classList.add('show');
+      try {
+        await emailjs.sendForm(
+          "service_harshmail",
+          "template_fe6rsf8",
+          contactForm
+        );
 
-        // Reset form and button state
+        alert("Message sent successfully!");
         contactForm.reset();
-        formSubmitBtn.disabled = false;
-        formSubmitBtn.innerHTML = originalBtnContent;
 
-        // After 5 seconds, hide success and show form again
-        setTimeout(() => {
-          formSuccess.classList.remove('show');
-          contactForm.style.display = '';
-        }, 5000);
-      }, 1500);
+        // Trigger existing success UI animation if it exists
+        if (formSuccess) {
+          contactForm.style.display = 'none';
+          formSuccess.classList.add('show');
+
+          // After 5 seconds, hide success and show form again
+          setTimeout(() => {
+            formSuccess.classList.remove('show');
+            contactForm.style.display = '';
+          }, 5000);
+        }
+
+      } catch (error) {
+        console.error(error);
+        alert("Failed to send message. Please try again.");
+      } finally {
+        formSubmitBtn.disabled = false;
+        formSubmitBtn.textContent = originalText;
+      }
     });
   }
 
