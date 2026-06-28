@@ -1,0 +1,82 @@
+/* ============================================================
+   trust.css — Trust Section Styles (#trust)
+   ============================================================ */
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .trust-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.trust-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(17, 24, 39, 0.4);
+  padding: 2.25rem 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trust-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-6px);
+}
+
+.trust-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.75rem;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.trust-card:hover .trust-card-icon {
+  transform: scale(1.08) rotate(2deg);
+}
+
+.trust-card-icon.blue {
+  background: rgba(0, 210, 255, 0.1);
+  border-color: rgba(0, 210, 255, 0.2);
+  color: var(--primary-blue);
+}
+
+.trust-card-icon.purple {
+  background: rgba(155, 81, 224, 0.1);
+  border-color: rgba(155, 81, 224, 0.2);
+  color: var(--secondary-purple);
+}
+
+.trust-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: white;
+  font-family: var(--font-outfit);
+  margin-bottom: 0.75rem;
+}
+
+.trust-card-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(249, 250, 251, 0.65);
+}

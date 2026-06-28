@@ -109,65 +109,71 @@
   font-family: var(--font-outfit);
 }
 
-.hero-name {
-  font-size: 2.5rem;
+.hero-subtitle {
+  font-size: 1.25rem;
+  font-family: var(--font-outfit);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--primary-blue);
+  margin-top: 0.5rem;
+}
+
+.hero-title {
+  font-size: 2.25rem;
   font-family: var(--font-outfit);
   font-weight: 800;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
   color: white;
-  line-height: 1.1;
+  line-height: 1.15;
+  margin-top: 0.5rem;
 }
 
 @media (min-width: 640px) {
-  .hero-name {
-    font-size: 3.75rem;
+  .hero-title {
+    font-size: 3rem;
   }
 }
 
-@media (min-width: 768px) {
-  .hero-name {
-    font-size: 4.25rem;
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 3.5rem;
   }
 }
 
-.hero-name .highlight {
-  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-purple));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Hero Roles */
-.hero-roles {
-  margin-top: 1.5rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
-  height: 3rem;
+.hero-badges {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  justify-content: center;
 }
 
-@media (min-width: 640px) {
-  .hero-roles {
-    font-size: 1.875rem;
+@media (min-width: 1024px) {
+  .hero-badges {
+    justify-content: flex-start;
   }
 }
 
-#typing-text {
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-blue), var(--secondary-purple));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(249, 250, 251, 0.75);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.typing-cursor::after {
-  content: '|';
-  animation: blink 1s step-start infinite;
-  color: var(--secondary-purple);
-  margin-left: 2px;
-  -webkit-text-fill-color: var(--secondary-purple);
+.hero-badge i {
+  width: 12px;
+  height: 12px;
+  color: #10B981;
 }
 
 /* Hero Bio */
