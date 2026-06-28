@@ -121,22 +121,27 @@
   transform: translateY(0);
 }
 
-.scroll-reveal.delay-1 {
+.scroll-reveal.delay-1,
+.scroll-reveal.delay-100 {
   transition-delay: 0.1s;
 }
 
-.scroll-reveal.delay-2 {
+.scroll-reveal.delay-2,
+.scroll-reveal.delay-200 {
   transition-delay: 0.2s;
 }
 
-.scroll-reveal.delay-3 {
+.scroll-reveal.delay-3,
+.scroll-reveal.delay-300 {
   transition-delay: 0.3s;
 }
 
-.scroll-reveal.delay-4 {
+.scroll-reveal.delay-4,
+.scroll-reveal.delay-400 {
   transition-delay: 0.4s;
 }
 
-.scroll-reveal.delay-5 {
+.scroll-reveal.delay-5,
+.scroll-reveal.delay-500 {
   transition-delay: 0.5s;
 }

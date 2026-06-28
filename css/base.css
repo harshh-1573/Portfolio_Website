@@ -11,11 +11,11 @@
    2. CSS Custom Properties
    ------------------------------------------- */
 :root {
-  --primary-blue: #3B82F6;
-  --secondary-purple: #8B5CF6;
-  --card: #111827;
-  --bg-dark: #0A0A0A;
-  --text-light: #F9FAFB;
+  --primary-blue: #00d2ff;      /* Bright neon sky-cyan */
+  --secondary-purple: #9b51e0;  /* Vibrant electric purple */
+  --card: #12131e;              /* Sleek, deep navy-gray card */
+  --bg-dark: #07080f;           /* Deep midnight space background */
+  --text-light: #f3f4f6;
   --font-inter: 'Inter', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
 }
@@ -131,4 +131,22 @@ html {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+}
+
+/* -------------------------------------------
+   6. Desktop Cursor Glow Effect
+   ------------------------------------------- */
+#cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 210, 255, 0.15) 0%, rgba(155, 81, 224, 0.05) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+  display: none;
 }
