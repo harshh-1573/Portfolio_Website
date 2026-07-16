@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================================
   // === 1. Initialize Lucide Icons ===
   // ============================================================
-  lucide.createIcons();
+  if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+    lucide.createIcons();
+  }
 
   // ============================================================
   // === 2. Loading Screen ===
@@ -12,33 +14,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadingProgress = document.getElementById('loading-progress');
   const loadingPercent = document.getElementById('loading-percent');
 
-  let progress = 0;
-  const loadingInterval = setInterval(() => {
-    // Increment by a random amount between 5 and 20
-    const increment = Math.floor(Math.random() * 16) + 5;
-    progress = Math.min(progress + increment, 100);
+  if (loadingScreen && loadingProgress && loadingPercent) {
+    let progress = 0;
+    const loadingInterval = setInterval(() => {
+      // Increment by a random amount between 5 and 20
+      const increment = Math.floor(Math.random() * 16) + 5;
+      progress = Math.min(progress + increment, 100);
 
-    // Update the progress bar width and percentage text
-    loadingProgress.style.width = progress + '%';
-    loadingPercent.textContent = progress + '%';
+      // Update the progress bar width and percentage text
+      loadingProgress.style.width = progress + '%';
+      loadingPercent.textContent = progress + '%';
 
-    if (progress >= 100) {
-      clearInterval(loadingInterval);
+      if (progress >= 100) {
+        clearInterval(loadingInterval);
 
-      // Wait 400ms after reaching 100%, then begin hide transition
-      setTimeout(() => {
-        loadingScreen.classList.add('loading-hidden');
-
-        // After the CSS transition completes (500ms), set display:none
+        // Wait 400ms after reaching 100%, then begin hide transition
         setTimeout(() => {
-          loadingScreen.style.display = 'none';
+          loadingScreen.classList.add('loading-hidden');
 
-          // Re-initialize Lucide icons for any elements that were hidden
-          lucide.createIcons();
-        }, 500);
-      }, 400);
-    }
-  }, 120);
+          // After the CSS transition completes (500ms), set display:none
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+
+            // Re-initialize Lucide icons for any elements that were hidden
+            if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+              lucide.createIcons();
+            }
+          }, 500);
+        }, 400);
+      }
+    }, 120);
+  }
 
   // ============================================================
   // === 3. Typing Animation ===
@@ -57,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let isDeleting = false;
 
   function typeEffect() {
+    if (!typingText) return;
     const currentRole = roles[roleIndex];
 
     if (!isDeleting) {
@@ -87,8 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Kick off the typing animation
-  typeEffect();
+  // Kick off the typing animation if typingText is present
+  if (typingText) {
+    typeEffect();
+  }
 
   // ============================================================
   // === 4. Navbar Scroll Effect ===
@@ -96,21 +105,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbar = document.getElementById('navbar');
   const backToTopBtn = document.getElementById('back-to-top');
 
-  window.addEventListener('scroll', () => {
-    // Add/remove 'scrolled' class based on scroll position
-    if (window.scrollY > 20) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
+  if (navbar || backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      // Add/remove 'scrolled' class based on scroll position
+      if (window.scrollY > 20) {
+        if (navbar) navbar.classList.add('scrolled');
+      } else {
+        if (navbar) navbar.classList.remove('scrolled');
+      }
 
-    // === 9. Back to Top Button visibility ===
-    if (window.scrollY > 400) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  }, { passive: true });
+      // Back to Top Button visibility
+      if (window.scrollY > 400) {
+        if (backToTopBtn) backToTopBtn.classList.add('visible');
+      } else {
+        if (backToTopBtn) backToTopBtn.classList.remove('visible');
+      }
+    }, { passive: true });
+  }
 
   // ============================================================
   // === 5. Mobile Menu ===
@@ -121,28 +132,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuIconClose = document.getElementById('menu-icon-close');
 
   function closeMobileMenu() {
-    mobileMenu.classList.remove('open');
-    menuIconOpen.style.display = 'block';
-    menuIconClose.style.display = 'none';
+    if (mobileMenu) mobileMenu.classList.remove('open');
+    if (menuIconOpen) menuIconOpen.style.display = 'block';
+    if (menuIconClose) menuIconClose.style.display = 'none';
   }
 
-  mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('open');
+  if (mobileMenuBtn && mobileMenu && menuIconOpen && menuIconClose) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
 
-    if (mobileMenu.classList.contains('open')) {
-      menuIconOpen.style.display = 'none';
-      menuIconClose.style.display = 'block';
-    } else {
-      menuIconOpen.style.display = 'block';
-      menuIconClose.style.display = 'none';
-    }
-  });
+      if (mobileMenu.classList.contains('open')) {
+        menuIconOpen.style.display = 'none';
+        menuIconClose.style.display = 'block';
+      } else {
+        menuIconOpen.style.display = 'block';
+        menuIconClose.style.display = 'none';
+      }
+    });
 
-  // Close mobile menu when any mobile nav link is clicked
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
-  });
+    // Close mobile menu when any mobile nav link is clicked
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+  }
 
   // ============================================================
   // === 6. Active Navigation Link Highlighting ===
@@ -170,42 +183,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setActiveLink(entry.target.id);
-      }
+  if (sections.length > 0 && typeof IntersectionObserver !== 'undefined') {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveLink(entry.target.id);
+        }
+      });
+    }, {
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
     });
-  }, {
-    rootMargin: '-50% 0px -50% 0px',
-    threshold: 0
-  });
 
-  sections.forEach(section => {
-    sectionObserver.observe(section);
-  });
+    sections.forEach(section => {
+      sectionObserver.observe(section);
+    });
+  }
 
   // ============================================================
   // === 7. Scroll Reveal Animations ===
   // ============================================================
   const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
 
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        // Unobserve after revealing (once behavior)
-        observer.unobserve(entry.target);
-      }
+  if (scrollRevealElements.length > 0 && typeof IntersectionObserver !== 'undefined') {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Unobserve after revealing (once behavior)
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-  });
 
-  scrollRevealElements.forEach(el => {
-    revealObserver.observe(el);
-  });
+    scrollRevealElements.forEach(el => {
+      revealObserver.observe(el);
+    });
+  }
 
   // ============================================================
   // === 8. Animated Stat Counters ===
@@ -214,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const animatedCounters = new Set(); // Track already-animated counters
 
   function animateCounter(counterEl) {
+    if (!counterEl) return;
     const target = parseFloat(counterEl.getAttribute('data-target')) || 0;
     const suffix = counterEl.getAttribute('data-suffix') || '';
     const decimals = parseInt(counterEl.getAttribute('data-decimals')) || 0;
@@ -247,29 +265,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }, stepTime);
   }
 
-  const counterObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !animatedCounters.has(entry.target)) {
-        animatedCounters.add(entry.target);
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
-      }
+  if (statCounters.length > 0 && typeof IntersectionObserver !== 'undefined') {
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !animatedCounters.has(entry.target)) {
+          animatedCounters.add(entry.target);
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.3
     });
-  }, {
-    threshold: 0.3
-  });
 
-  statCounters.forEach(counter => {
-    counterObserver.observe(counter);
-  });
+    statCounters.forEach(counter => {
+      counterObserver.observe(counter);
+    });
+  }
 
   // ============================================================
   // === 9. Back to Top Button ===
   // ============================================================
-  // Visibility is handled above in the scroll listener (section 4)
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // ============================================================
   // === 10. Contact Form ===
@@ -303,38 +324,46 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Save original button content and show text content "Sending..."
-      const originalText = formSubmitBtn.textContent;
-      formSubmitBtn.disabled = true;
-      formSubmitBtn.textContent = "Sending...";
+      const originalText = formSubmitBtn ? formSubmitBtn.textContent : "Send Message";
+      if (formSubmitBtn) {
+        formSubmitBtn.disabled = true;
+        formSubmitBtn.textContent = "Sending...";
+      }
 
       try {
-        await emailjs.sendForm(
-          "service_harshmail",
-          "template_fe6rsf8",
-          contactForm
-        );
+        if (typeof emailjs !== 'undefined') {
+          await emailjs.sendForm(
+            "service_harshmail",
+            "template_fe6rsf8",
+            contactForm
+          );
 
-        alert("Message sent successfully!");
-        contactForm.reset();
+          alert("Message sent successfully!");
+          contactForm.reset();
 
-        // Trigger existing success UI animation if it exists
-        if (formSuccess) {
-          contactForm.style.display = 'none';
-          formSuccess.classList.add('show');
+          // Trigger success UI animations
+          if (formSuccess) {
+            contactForm.style.display = 'none';
+            formSuccess.classList.add('show');
 
-          // After 5 seconds, hide success and show form again
-          setTimeout(() => {
-            formSuccess.classList.remove('show');
-            contactForm.style.display = '';
-          }, 5000);
+            // After 5 seconds, hide success and show form again
+            setTimeout(() => {
+              formSuccess.classList.remove('show');
+              contactForm.style.display = '';
+            }, 5000);
+          }
+        } else {
+          alert("EmailJS is currently offline. Please try emailing directly.");
         }
 
       } catch (error) {
         console.error(error);
         alert("Failed to send message. Please try again.");
       } finally {
-        formSubmitBtn.disabled = false;
-        formSubmitBtn.textContent = originalText;
+        if (formSubmitBtn) {
+          formSubmitBtn.disabled = false;
+          formSubmitBtn.textContent = originalText;
+        }
       }
     });
   }
@@ -397,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         targetElement.scrollIntoView({ behavior: 'smooth' });
 
         // Close mobile menu if it's open
-        if (mobileMenu.classList.contains('open')) {
+        if (mobileMenu && mobileMenu.classList.contains('open')) {
           closeMobileMenu();
         }
       }
@@ -426,16 +455,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = certPreviewContainer.classList.contains('open');
       
       if (isOpen) {
-        certToggleText.textContent = 'Hide Certificate';
+        if (certToggleText) certToggleText.textContent = 'Hide Certificate';
         if (certEyeIcon) {
           certEyeIcon.setAttribute('data-lucide', 'eye-off');
-          lucide.createIcons(); // Refresh Lucide icons
+          if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            lucide.createIcons(); // Refresh Lucide icons
+          }
         }
       } else {
-        certToggleText.textContent = 'Show Certificate';
+        if (certToggleText) certToggleText.textContent = 'Show Certificate';
         if (certEyeIcon) {
           certEyeIcon.setAttribute('data-lucide', 'eye');
-          lucide.createIcons(); // Refresh Lucide icons
+          if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            lucide.createIcons(); // Refresh Lucide icons
+          }
         }
       }
     });
