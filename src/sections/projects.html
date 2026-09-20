@@ -2,28 +2,130 @@
 <section id="projects" class="section">
   <div class="container">
     <div class="section-header scroll-reveal">
-      <span class="section-label purple">My Works</span>
-      <h2 class="section-title">Featured Engineering Projects</h2>
+      <span class="section-label purple">Featured Works</span>
+      <h2 class="section-title">Software Engineering Projects</h2>
     </div>
 
     <div class="projects-list">
-      <!-- Project 1: Grace Dabeli (Image Left, Content Right) -->
+      <!-- Project 1: ResolveAI (Java 21 + Spring Boot + React + PostgreSQL) -->
       <div class="project-item scroll-reveal delay-100">
         <div class="project-image">
+          <div class="project-image-inner code-preview-wrapper" style="background: #0d1117; display: flex; flex-direction: column; font-family: 'Consolas', 'Fira Code', monospace; padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.08);">
+            <!-- Window header -->
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 0.6rem; margin-bottom: 0.75rem;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="width: 11px; height: 11px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+                <span style="width: 11px; height: 11px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+                <span style="width: 11px; height: 11px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+                <span style="margin-left: 8px; font-size: 11px; color: rgba(255, 255, 255, 0.5);">IncidentController.java — Java 21 / Spring Boot</span>
+              </div>
+              <span style="font-size: 10px; font-weight: 700; color: #10b981; background: rgba(16, 185, 129, 0.15); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.3);">Active Build</span>
+            </div>
+            <!-- Code content -->
+            <div style="font-size: 11.5px; line-height: 1.6; color: #c9d1d9; overflow: hidden;">
+              <div><span style="color: #ff7b72;">@RestController</span></div>
+              <div><span style="color: #ff7b72;">@RequestMapping</span>(<span style="color: #a5d6ff;">"/api/v1/incidents"</span>)</div>
+              <div><span style="color: #ff7b72;">public class</span> <span style="color: #ffa657;">IncidentController</span> {</div>
+              <div style="padding-left: 1.25rem;"><span style="color: #8b949e;">// AI-Assisted Incident Resolution &amp; SLA Management</span></div>
+              <div style="padding-left: 1.25rem;"><span style="color: #ff7b72;">@PostMapping</span>(<span style="color: #a5d6ff;">"/{id}/ai-resolve"</span>)</div>
+              <div style="padding-left: 1.25rem;"><span style="color: #ff7b72;">public</span> ResponseEntity&lt;ResolutionPlan&gt; <span style="color: #d2a8ff;">resolveIncident</span>(</div>
+              <div style="padding-left: 2.5rem;"><span style="color: #ff7b72;">@PathVariable</span> UUID id,</div>
+              <div style="padding-left: 2.5rem;"><span style="color: #ff7b72;">@AuthenticationPrincipal</span> UserPrincipal user) {</div>
+              <div style="padding-left: 2.5rem;"><span style="color: #ff7b72;">return</span> ResponseEntity.ok(incidentService.analyzeAndResolve(id, user));</div>
+              <div style="padding-left: 1.25rem;">}</div>
+              <div>}</div>
+              <div style="margin-top: 0.75rem; padding-top: 0.6rem; border-top: 1px dashed rgba(255, 255, 255, 0.1); display: flex; gap: 12px; font-size: 11px; color: #58a6ff;">
+                <span>✓ 153 Tests Passed</span>
+                <span>✓ Flyway DB Migrated</span>
+                <span>✓ PostgreSQL 17</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+            <span class="project-subtitle">01 &bull; IT Service Management Platform</span>
+            <span style="font-size: 11px; font-weight: 700; color: #f59e0b; background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); padding: 3px 8px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 4px;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
+              Currently in Development
+            </span>
+          </div>
+          <h3 class="project-title">ResolveAI — AI-Powered ITSM Platform</h3>
+          <p style="color: rgba(249, 250, 251, 0.75); font-size: 14px; line-height: 1.6;">
+            ResolveAI is an IT service management platform designed to help organizations manage incidents, teams, knowledge, and AI-assisted incident resolution through a centralized system.
+          </p>
+          <div class="project-tech-badges">
+            <span class="tech-badge">Java 21</span>
+            <span class="tech-badge">Spring Boot</span>
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">REST APIs</span>
+            <span class="tech-badge">JWT Auth</span>
+            <span class="tech-badge">Maven</span>
+            <span class="tech-badge">AI Integration</span>
+          </div>
+          <div class="project-details">
+            <div class="project-features">
+              <span class="project-features-label"><i data-lucide="layers" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Core System Modules</span>
+              <ul class="project-feature-list">
+                <li class="project-feature-item">
+                  <span class="feature-check"><i data-lucide="check"></i></span>
+                  <span><strong>Incident Management &amp; SLA:</strong> End-to-end incident lifecycle tracking with dynamic priority triage</span>
+                </li>
+                <li class="project-feature-item">
+                  <span class="feature-check"><i data-lucide="check"></i></span>
+                  <span><strong>Role-Based Authentication:</strong> Secure JWT authentication with strict role and privilege authorization</span>
+                </li>
+                <li class="project-feature-item">
+                  <span class="feature-check"><i data-lucide="check"></i></span>
+                  <span><strong>Team &amp; Agent Management:</strong> Operational team assignments and engineer workload tracking</span>
+                </li>
+                <li class="project-feature-item">
+                  <span class="feature-check"><i data-lucide="check"></i></span>
+                  <span><strong>AI-Assisted Resolution:</strong> Automated incident analysis, classification, and recommended solutions</span>
+                </li>
+                <li class="project-feature-item">
+                  <span class="feature-check"><i data-lucide="check"></i></span>
+                  <span><strong>Knowledge Base &amp; Analytics:</strong> Centralized troubleshooting documentation and operational dashboard</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/harshh-1573" target="_blank" rel="noopener noreferrer" class="btn-primary">
+              <i data-lucide="github"></i>
+              View on GitHub
+            </a>
+            <span class="btn-secondary" style="cursor: default; opacity: 0.85; border-color: rgba(245, 158, 11, 0.4); color: #f59e0b;">
+              <i data-lucide="clock"></i>
+              In Development
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Grace Food Outlet (MERN Stack) -->
+      <div class="project-item reverse scroll-reveal delay-200">
+        <div class="project-image">
           <div class="project-image-inner">
-            <img src="public/grace_dabeli_mockup.png" alt="Grace Dabeli food ordering platform dashboard mockup designed by Harsh Gorantiwar" loading="lazy">
+            <img src="public/grace_dabeli_mockup.png" alt="Grace Food Outlet food ordering platform dashboard mockup by Harsh Gorantiwar" loading="lazy">
             <div class="project-image-overlay"></div>
           </div>
         </div>
         <div class="project-content">
-          <span class="project-subtitle">MERN Food Ordering Platform</span>
+          <span class="project-subtitle">02 &bull; Real-Time Food Ordering &amp; Management Platform</span>
           <h3 class="project-title">Grace Food Outlet</h3>
+          <p style="color: rgba(249, 250, 251, 0.75); font-size: 14px; line-height: 1.6;">
+            A full-stack food ordering and event catering platform featuring customer authentication, menu management, order processing, and real-time order updates.
+          </p>
           <div class="project-tech-badges">
             <span class="tech-badge">React.js</span>
             <span class="tech-badge">Node.js</span>
             <span class="tech-badge">Express.js</span>
-            <span class="tech-badge">MongoDB Atlas</span>
-            <span class="tech-badge">JWT</span>
+            <span class="tech-badge">MongoDB</span>
+            <span class="tech-badge">JWT Auth</span>
+            <span class="tech-badge">Socket.IO</span>
+            <span class="tech-badge">Cloudinary</span>
           </div>
           <div class="project-details">
             <div class="project-features">
@@ -31,38 +133,31 @@
               <ul class="project-feature-list">
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span>Real-time food ordering system for local operations</span>
+                  <span><strong>Customer Authentication:</strong> Secure JWT authentication with customized user sessions</span>
                 </li>
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span>Comprehensive Admin Dashboard for inventory &amp; order tracking</span>
+                  <span><strong>Admin Dashboard:</strong> Full operations panel for live order tracking, menu items, and feedback</span>
                 </li>
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span>Secure Role-based Authentication (Customer vs Admin)</span>
+                  <span><strong>Real-Time Order Updates:</strong> Bidirectional WebSocket communication via Socket.IO</span>
                 </li>
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span>Fully responsive and mobile-friendly user interface</span>
+                  <span><strong>Database-Driven Architecture:</strong> Comprehensive CRUD workflows with MongoDB and Express.js</span>
                 </li>
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span>Robust and secure REST APIs for transaction handling</span>
+                  <span><strong>Responsive UI:</strong> Mobile-first client interface optimized for quick food browsing and checkout</span>
                 </li>
-              </ul>
-            </div>
-            <div class="project-impact">
-              <span class="project-impact-label"><i data-lucide="trending-up" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Impact</span>
-              <ul class="project-impact-list">
-                <li>Successfully managed 100+ daily active orders</li>
-                <li>Reduced overall order processing and pickup time significantly</li>
               </ul>
             </div>
           </div>
           <div class="project-actions">
             <a href="https://grace-dabeli-centre.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">
-              <i data-lucide="play"></i>
-              Go LIVE
+              <i data-lucide="external-link"></i>
+              Live Demo
             </a>
             <a href="https://github.com/harshh-1573/grace-food-outlet" target="_blank" rel="noopener noreferrer" class="btn-secondary">
               <i data-lucide="github"></i>
@@ -72,26 +167,28 @@
         </div>
       </div>
 
-      <!-- Project 2: AskNLearn App (Image Right, Content Left) -->
-      <div class="project-item reverse scroll-reveal delay-200">
+      <!-- Project 3: AskNLearn (React + Python FastAPI + MySQL + AI) -->
+      <div class="project-item scroll-reveal delay-300">
         <div class="project-image">
           <div class="project-image-inner">
-            <img src="public/asknlearn_mockup.jpg" alt="AskNLearn AI-Powered Digital Student Workspace dashboard mockup designed by Harsh Gorantiwar" loading="lazy">
+            <img src="public/asknlearn_mockup.jpg" alt="AskNLearn AI-Powered Learning Platform mockup by Harsh Gorantiwar" loading="lazy">
             <div class="project-image-overlay"></div>
           </div>
         </div>
         <div class="project-content">
-          <span class="project-subtitle">AI-Powered Learning Workspace</span>
-          <h3 class="project-title">AskNLearn AI Student Companion</h3>
+          <span class="project-subtitle">03 &bull; AI-Powered Educational Platform</span>
+          <h3 class="project-title">AskNLearn — AI Student Companion</h3>
+          <p style="color: rgba(249, 250, 251, 0.75); font-size: 14px; line-height: 1.6;">
+            An AI-powered educational platform that transforms learning materials into summaries, flashcards, quizzes, and interactive learning experiences.
+          </p>
           <div class="project-tech-badges">
             <span class="tech-badge">React.js</span>
             <span class="tech-badge">Node.js</span>
             <span class="tech-badge">Express.js</span>
             <span class="tech-badge">Python (FastAPI)</span>
-            <span class="tech-badge">Google Gemini API</span>
-            <span class="tech-badge">Socket.io (WebSockets)</span>
             <span class="tech-badge">MySQL</span>
-            <span class="tech-badge">Sequelize ORM</span>
+            <span class="tech-badge">Gemini API</span>
+            <span class="tech-badge">Socket.IO</span>
           </div>
           <div class="project-details">
             <div class="project-features">
@@ -99,38 +196,31 @@
               <ul class="project-feature-list">
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span><strong>AI Content Generator:</strong> Converts PDFs, YouTube videos, OCR, &amp; links into summaries, flashcards, &amp; assessments</span>
+                  <span><strong>Multi-Source AI Ingestion:</strong> Processes PDFs, web links, audio/video, and OCR imagery</span>
                 </li>
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span><strong>Socratic AI Tutor:</strong> Integrated chat with Socratic guidance mode to lead students to answers independently</span>
+                  <span><strong>Automated Learning Tools:</strong> Generates concise summaries, flashcards, quizzes, and mind maps</span>
                 </li>
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span><strong>Gamification System:</strong> Features experience points (XP), ranks (Bronze to Diamond), streaks, and global leaderboards</span>
+                  <span><strong>Adaptive Learning System:</strong> Topic-level performance tracking and dynamic difficulty scaling</span>
                 </li>
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span><strong>Collaborative Subject Rooms:</strong> WebSocket-powered study lobbies for subject discussion and attachment sharing</span>
+                  <span><strong>Socratic AI Tutor:</strong> Contextual chat providing hints and guided step-by-step reasoning</span>
                 </li>
                 <li class="project-feature-item">
                   <span class="feature-check"><i data-lucide="check"></i></span>
-                  <span><strong>Smart Diagnostics:</strong> Generates automated performance report pinpointing weaknesses and tailored study plans</span>
+                  <span><strong>Collaborative Study Lobbies:</strong> WebSocket-powered interactive subject study rooms</span>
                 </li>
-              </ul>
-            </div>
-            <div class="project-impact">
-              <span class="project-impact-label"><i data-lucide="trending-up" style="width: 14px; height: 14px; display: inline; vertical-align: middle;"></i> Architecture &amp; Impact</span>
-              <ul class="project-impact-list">
-                <li>Utilizes FastAPI backend with faster-whisper speech transcription and OCR extraction tools</li>
-                <li>Admin panel manages database, curates mock assessments, and tracks platform usage statistics</li>
               </ul>
             </div>
           </div>
           <div class="project-actions">
             <a href="https://asknlearn-v2-mqfdk7pk4-harshs-projects-c3b617ef.vercel.app/login" target="_blank" rel="noopener noreferrer" class="btn-primary">
-              <i data-lucide="play"></i>
-              Go LIVE
+              <i data-lucide="external-link"></i>
+              Live Demo
             </a>
             <a href="https://github.com/harshh-1573/CS-QUIZ-MASTER" target="_blank" rel="noopener noreferrer" class="btn-secondary">
               <i data-lucide="github"></i>

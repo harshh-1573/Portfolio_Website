@@ -51,12 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============================================================
   const typingText = document.getElementById('typing-text');
   const roles = [
-    'Freelance Web Developer',
-    'Software Engineer & Builder',
-    'Full Stack Web Developer',
+    'Java Full Stack Developer',
+    'Software Engineer',
+    'Spring Boot Developer',
     'Java Backend Engineer',
-    'SEO & Performance Specialist',
-    'Digital Entrepreneur'
+    'Full Stack Engineer'
   ];
   let roleIndex = 0;
   let charIndex = 0;
@@ -161,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // === 6. Active Navigation Link Highlighting ===
   // ============================================================
   const sections = document.querySelectorAll(
-    '#home, #about, #services, #pricing, #projects, #contact'
+    '#home, #about, #skills, #projects, #experience, #education, #certifications, #achievements, #contact'
   );
   const navLinks = document.querySelectorAll('.nav-link');
   const allMobileNavLinks = document.querySelectorAll('.mobile-nav-link');
