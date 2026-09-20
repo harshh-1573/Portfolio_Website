@@ -441,36 +441,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // === 14. Certificate Preview Toggle ===
+  // === 14. Certificate Preview Toggles ===
   // ============================================================
-  const toggleCertBtn = document.getElementById('toggle-cert-btn');
-  const certPreviewContainer = document.getElementById('cert-preview-container');
-  const certToggleText = document.getElementById('cert-toggle-text');
-  const certEyeIcon = document.getElementById('cert-eye-icon');
+  const certToggleButtons = document.querySelectorAll('.btn-cert-preview');
 
-  if (toggleCertBtn && certPreviewContainer) {
-    toggleCertBtn.addEventListener('click', () => {
-      certPreviewContainer.classList.toggle('open');
-      const isOpen = certPreviewContainer.classList.contains('open');
-      
-      if (isOpen) {
-        if (certToggleText) certToggleText.textContent = 'Hide Certificate';
-        if (certEyeIcon) {
-          certEyeIcon.setAttribute('data-lucide', 'eye-off');
-          if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
-            lucide.createIcons(); // Refresh Lucide icons
-          }
-        }
-      } else {
-        if (certToggleText) certToggleText.textContent = 'Show Certificate';
-        if (certEyeIcon) {
-          certEyeIcon.setAttribute('data-lucide', 'eye');
-          if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
-            lucide.createIcons(); // Refresh Lucide icons
-          }
+  certToggleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      if (!targetId) return;
+      const targetContainer = document.getElementById(targetId);
+      if (!targetContainer) return;
+
+      targetContainer.classList.toggle('open');
+      const isOpen = targetContainer.classList.contains('open');
+
+      const toggleText = btn.querySelector('.cert-toggle-text');
+      const eyeIcon = btn.querySelector('.cert-eye-icon');
+
+      if (toggleText) {
+        toggleText.textContent = isOpen ? 'Hide Certificate' : 'Show Certificate';
+      }
+      if (eyeIcon) {
+        eyeIcon.setAttribute('data-lucide', isOpen ? 'eye-off' : 'eye');
+        if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+          lucide.createIcons();
         }
       }
     });
-  }
+  });
 
 });
