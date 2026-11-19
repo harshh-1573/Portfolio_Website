@@ -361,14 +361,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         if (typeof emailjs !== 'undefined') {
-          await emailjs.sendForm(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            contactForm,
-            {
-              publicKey: EMAILJS_PUBLIC_KEY,
-            }
-          );
+          const serviceSelect = contactForm.querySelector('[name="service"]');
+          const templateParams = {
+            name: name.value.trim(),
+            email: email.value.trim(),
+            time: new Date().toLocaleString('en-IN', {
+              dateStyle: 'medium',
+              timeStyle: 'short'
+            }),
+            message: message.value.trim(),
+            service: serviceSelect ? serviceSelect.value : 'General Inquiry',
+            from_name: name.value.trim(),
+            reply_to: email.value.trim(),
+            from_email: email.value.trim(),
+          };
+
+          // Primary: emailjs.send (direct JSON API)
+          try {
+            await emailjs.send(
+              EMAILJS_SERVICE_ID,
+              EMAILJS_TEMPLATE_ID,
+              templateParams,
+              {
+                publicKey: EMAILJS_PUBLIC_KEY,
+              }
+            );
+          } catch (sendErr) {
+            console.warn('emailjs.send failed, trying sendForm fallback...', sendErr);
+            await emailjs.sendForm(
+              EMAILJS_SERVICE_ID,
+              EMAILJS_TEMPLATE_ID,
+              contactForm,
+              {
+                publicKey: EMAILJS_PUBLIC_KEY,
+              }
+            );
+          }
 
           contactForm.reset();
 
@@ -393,8 +421,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       } catch (error) {
         console.error('EmailJS submission error:', error);
-        const errMsg = error && (error.text || error.message)
-          ? `Failed to send: ${error.text || error.message}`
+        let errorDetails = '';
+        if (typeof error === 'string') {
+          errorDetails = error;
+        } else if (error && error.text) {
+          errorDetails = error.text;
+        } else if (error && error.message) {
+          errorDetails = error.message;
+        }
+
+        const errMsg = errorDetails
+          ? `Failed to send: ${errorDetails}`
           : 'Failed to send message. Please try again or email directly at harshgorantiwar@gmail.com.';
 
         if (formError) {
