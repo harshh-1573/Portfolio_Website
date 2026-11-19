@@ -103,10 +103,16 @@
               <label for="contact-message" class="form-label">Message</label>
               <textarea id="contact-message" name="message" class="form-textarea" rows="5" placeholder="Share job opportunity details, team info, or your message..." required></textarea>
             </div>
+            <!-- EmailJS Template Variable Compatibility Fields -->
+            <input type="hidden" name="time" id="contact-time">
+            <input type="hidden" name="from_name" id="contact-from-name">
+            <input type="hidden" name="reply_to" id="contact-reply-to">
+            <input type="hidden" name="from_email" id="contact-from-email">
             <button type="submit" id="form-submit-btn" class="btn-submit">
               <i data-lucide="send"></i>
               Send Message
             </button>
+            <div id="form-error" class="form-error-msg" style="display: none; margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 8px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; font-size: 0.875rem; text-align: center;"></div>
           </form>
 
           <div id="form-success">

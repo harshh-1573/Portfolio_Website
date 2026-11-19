@@ -292,22 +292,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // === 10. Contact Form ===
+  // === 10. Contact Form (EmailJS) ===
   // ============================================================
   const contactForm = document.getElementById('contact-form');
   const formSuccess = document.getElementById('form-success');
   const formSubmitBtn = document.getElementById('form-submit-btn');
+  const formError = document.getElementById('form-error');
+
+  const EMAILJS_SERVICE_ID = "service_vq3kst9";
+  const EMAILJS_TEMPLATE_ID = "template_fe6rsf8";
+  const EMAILJS_PUBLIC_KEY = "4_KiyvocN_rBR5GEw";
 
   // Initialize EmailJS
   if (typeof emailjs !== 'undefined') {
     emailjs.init({
-      publicKey: "4_KiyvocN_rBR5GEw",
+      publicKey: EMAILJS_PUBLIC_KEY,
     });
   }
 
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Reset any previous error message
+      if (formError) {
+        formError.style.display = 'none';
+        formError.textContent = '';
+      }
 
       // Basic validation — check that name, email, and message are filled
       const name = contactForm.querySelector('[name="name"]');
@@ -319,25 +330,46 @@ document.addEventListener('DOMContentLoaded', () => {
         (email && !email.value.trim()) ||
         (message && !message.value.trim())
       ) {
+        if (formError) {
+          formError.textContent = 'Please fill out all required fields.';
+          formError.style.display = 'block';
+        }
         return; // Don't submit if fields are empty
       }
 
-      // Save original button content and show text content "Sending..."
-      const originalText = formSubmitBtn ? formSubmitBtn.textContent : "Send Message";
+      // Populate compatibility fields for EmailJS templates ({{name}}, {{email}}, {{time}}, {{message}})
+      const timeInput = contactForm.querySelector('[name="time"]');
+      if (timeInput) {
+        timeInput.value = new Date().toLocaleString('en-IN', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+        });
+      }
+      const fromName = contactForm.querySelector('[name="from_name"]');
+      const replyTo = contactForm.querySelector('[name="reply_to"]');
+      const fromEmail = contactForm.querySelector('[name="from_email"]');
+      if (fromName && name) fromName.value = name.value.trim();
+      if (replyTo && email) replyTo.value = email.value.trim();
+      if (fromEmail && email) fromEmail.value = email.value.trim();
+
+      // Save original button content and show spinner
+      const originalBtnContent = formSubmitBtn ? formSubmitBtn.innerHTML : 'Send Message';
       if (formSubmitBtn) {
         formSubmitBtn.disabled = true;
-        formSubmitBtn.textContent = "Sending...";
+        formSubmitBtn.innerHTML = '<span class="spinner"></span> Sending...';
       }
 
       try {
         if (typeof emailjs !== 'undefined') {
           await emailjs.sendForm(
-            "service_harshmail",
-            "template_fe6rsf8",
-            contactForm
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            contactForm,
+            {
+              publicKey: EMAILJS_PUBLIC_KEY,
+            }
           );
 
-          alert("Message sent successfully!");
           contactForm.reset();
 
           // Trigger success UI animations
@@ -345,23 +377,39 @@ document.addEventListener('DOMContentLoaded', () => {
             contactForm.style.display = 'none';
             formSuccess.classList.add('show');
 
-            // After 5 seconds, hide success and show form again
+            if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+              lucide.createIcons();
+            }
+
+            // After 6 seconds, hide success and show form again
             setTimeout(() => {
               formSuccess.classList.remove('show');
               contactForm.style.display = '';
-            }, 5000);
+            }, 6000);
           }
         } else {
-          alert("EmailJS is currently offline. Please try emailing directly.");
+          throw new Error('Email service is temporarily unavailable. Please email directly at harshgorantiwar@gmail.com');
         }
 
       } catch (error) {
-        console.error(error);
-        alert("Failed to send message. Please try again.");
+        console.error('EmailJS submission error:', error);
+        const errMsg = error && (error.text || error.message)
+          ? `Failed to send: ${error.text || error.message}`
+          : 'Failed to send message. Please try again or email directly at harshgorantiwar@gmail.com.';
+
+        if (formError) {
+          formError.textContent = errMsg;
+          formError.style.display = 'block';
+        } else {
+          alert(errMsg);
+        }
       } finally {
         if (formSubmitBtn) {
           formSubmitBtn.disabled = false;
-          formSubmitBtn.textContent = originalText;
+          formSubmitBtn.innerHTML = originalBtnContent;
+          if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            lucide.createIcons();
+          }
         }
       }
     });
